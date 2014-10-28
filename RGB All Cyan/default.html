@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>RGB_All_Cyan</title>
+
+    <!-- WinJS references -->
+    <!-- At runtime, ui-themed.css resolves to ui-themed.light.css or ui-themed.dark.css 
+    based on the user’s theme setting. This is part of the MRT resource loading functionality. -->
+    <link href="/css/ui-themed.css" rel="stylesheet" />
+    <script src="//Microsoft.Phone.WinJS.2.1/js/base.js"></script>
+    <script src="//Microsoft.Phone.WinJS.2.1/js/ui.js"></script>
+
+    <!-- RGB_All_Cyan references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/rgb.css" rel="stylesheet">
+    <script src="/js/default.js"></script>
+</head>
+<body class="phone">
+    <div id="scores" style="margin-top : 0px;margin-bottom:0px">
+        <span class="score" style="margin-right : 10px">
+            <span>Score</span>
+            <span id="current-score">0</span>
+        </span>
+        <span class="score">
+            <span>Best</span>
+            <span id="best-score">0</span>
+        </span>
+        <a href="#" id="replay-link" title="Restart Game" style="background:lightblue;padding:10px;border-radius:3px;cursor:pointer;margin-left : 10px;">
+            <img src="img/replay.png" width="20" height="20" />
+        </a>
+    </div>
+
+
+
+    <div id="grid" style="overflow : hidden">
+    </div>
+    <div id="game-message">
+
+
+    </div>
+
+
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/rgb.js"></script>
+    <script type="text/javascript" src="/js/keyboard_input_manager.js"></script>
+
+    <script type="text/javascript">
+        function init() {
+            setup();
+            var back = localStorage.getItem("background");
+            if (back) {
+                back = back === "original" ? "#F0FFFF" : back;
+                back = back === "random" ? window.grid.randomColor() : back;
+                $("body").css("background", back);
+            }
+
+            var grid = new Grid();
+            window.grid = grid;
+            grid.init();
+            grid.run();
+            if (window.grid.getDim()[1] > (window.grid.getDim()[0] + 100)) {
+                var diff = grid.getDim()[1] - grid.getDim()[0] + 60;
+                diff = diff > 40 ? 40 : diff;
+                var margin = diff / 2 + "px";
+                //margin = "0px";
+                //put margins because there is enough space since the height is greater than width
+                var scores = $("#scores");
+                scores.css("margin-bottom", margin);
+                scores.css("margin-top", margin);
+            }
+        }
+
+        function setup() {
+            $("#game-message")[0].style.display = "none";
+            var bestScore = localStorage.getItem("best-score");
+            if (bestScore) {
+                bestScore = parseInt(bestScore);
+            }
+            else {
+                bestScore = 0;
+            }
+            $("#best-score").html(bestScore);
+            $("#current-score").html("0");
+            $("#replay-link")[0].addEventListener("click", replay, false);
+        }
+
+        function restart() {
+            window.grid.grid =
+                [[null, null, null, null],
+                 [null, null, null, null],
+                 [null, null, null, null],
+                 [null, null, null, null]];
+            for (var y = 0; y < 4; y++) {
+                for (var x = 0; x < 4; x++) {
+                    window.grid.actuate("transparent", x, y, "init");
+                }
+            }
+            setup();
+            window.grid.motion = true;
+            window.grid.nextTile();
+            window.grid.nextTile();
+            window.grid.cyanTiles = [];
+            window.grid.previousTilesLength = 0;
+            localStorage.removeItem("the-grid");
+            localStorage.setItem("the-grid", JSON.stringify(window.grid.grid));
+        }
+        function replay() {
+            window.grid.confirm("Restart the game?", restart);
+        }
+
+        function showMenu() {
+            var menu = [{
+                label: "Background",
+                options: ["original", "black", "white", "gray", "red", "green", "blue", "yellow", "magenta", "cyan", "random"],
+                preset: localStorage.getItem("background")
+            }
+                 /* {
+                     label: "Sound",
+                     options: ["off", "on"],
+                     preset: localStorage.getItem("sound-on")
+                 }
+                {
+                     label: "Music",
+                     options: ["off", "on"],
+                     preset: localStorage.getItem("music-on")
+                 }
+                 */
+            ];
+            window.grid.menuBuilder(menu, "saveSettings");
+        }
+
+        function saveSettings(ids) {
+            var background = $("#" + ids[0]).val();
+            background = background === "original" ? "#F0FFFF" : background;
+            background = background === "random" ? window.grid.randomColor() : background;
+            $("body").css("background", background);
+            //var soundOn = $("#" + ids[1]).val();
+            //var musicOn = $("#" + ids[2]).val();
+            localStorage.setItem("background", background);
+            //localStorage.setItem("sound-on", soundOn);
+            //localStorage.setItem("music-on", musicOn);
+            $('#game-message').css('display', 'none');
+        }
+
+
+ 
+
+
+
+    
+
+
+       
+
+
+        init();
+
+    </script>
+     <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'settings', label:'Settings', icon: '/img/settings.png'}" type="button"></button>
+         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'help', label:'Help', icon:'placeholder'}" type="button"></button>
+         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'about', label:'About', icon:'placeholder'}" type="button"></button>
+     </div>
+
+</body>
+</html>

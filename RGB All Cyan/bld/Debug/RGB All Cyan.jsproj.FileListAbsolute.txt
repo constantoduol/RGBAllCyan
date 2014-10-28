@@ -1,0 +1,15 @@
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bin\Debug\ReverseMap\resources.pri
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bin\Debug\AppxManifest.xml
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bin\Debug\RGB All Cyan.build.appxrecipe
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\priconfig.xml
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\priconfig.xml.intermediate
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\layout.resfiles
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\layout.resfiles.intermediate
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\resources.resfiles
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\resources.resfiles.intermediate
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\pri.resfiles
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\pri.resfiles.intermediate
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\qualifiers.txt
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\qualifiers.txt.intermediate
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\MultipleQualifiersPerDimensionFound.txt
+D:\Windows Projects\RGB All Cyan\RGB All Cyan\bld\Debug\ProjectArchitectures.txt
